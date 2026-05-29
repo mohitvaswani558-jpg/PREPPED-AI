@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PreppedAI | Domain Selection Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d8e2ff",
+                    "surface-container-lowest": "#010f1f",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#231500",
+                    "inverse-on-surface": "#233143",
+                    "on-primary": "#283044",
+                    "surface-variant": "#273647",
+                    "on-secondary-fixed-variant": "#004395",
+                    "on-secondary-container": "#e6ecff",
+                    "on-primary-container": "#798098",
+                    "surface": "#051424",
+                    "tertiary-fixed-dim": "#ebc07c",
+                    "primary-fixed": "#dae2fd",
+                    "secondary-container": "#0566d9",
+                    "on-surface-variant": "#c6c6cd",
+                    "on-secondary": "#002e6a",
+                    "surface-container": "#122131",
+                    "outline": "#909097",
+                    "inverse-surface": "#d4e4fa",
+                    "outline-variant": "#45464d",
+                    "surface-dim": "#051424",
+                    "secondary": "#adc6ff",
+                    "on-tertiary-container": "#9f7b3e",
+                    "on-surface": "#d4e4fa",
+                    "surface-container-highest": "#273647",
+                    "tertiary-fixed": "#ffdeac",
+                    "surface-container-low": "#0d1c2d",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#1c2b3c",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "surface-tint": "#bec6e0",
+                    "primary": "#bec6e0",
+                    "on-error": "#690005",
+                    "on-error-container": "#ffdad6",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#281900",
+                    "surface-bright": "#2c3a4c",
+                    "on-primary-fixed": "#131b2e",
+                    "inverse-primary": "#565e74",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-secondary-fixed": "#001a42",
+                    "tertiary": "#ebc07c",
+                    "on-background": "#d4e4fa",
+                    "primary-container": "#0f172a",
+                    "on-tertiary": "#432c00",
+                    "background": "#051424",
+                    "on-tertiary-fixed-variant": "#5e4108"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 24px -1px rgba(15, 23, 42, 0.1);
+        }
+        .glass-card:hover {
+            border-color: #bec6e0;
+            background: rgba(30, 41, 59, 0.6);
+        }
+        .difficulty-pill.active {
+            background: #bec6e0;
+            color: #131b2e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-border {
+            border-bottom: 1px solid rgba(235, 192, 124, 0.3);
+        }
+        body {
+            background-color: #051424;
+            color: #d4e4fa;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar Section -->
+<header class="fixed top-0 w-full z-50 bg-surface-container/80 border-b border-outline-variant backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">PreppedAI</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-primary border-b-2 border-primary pb-1 font-semibold font-body-md text-body-md transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Practice</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Resources</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="#">Feedback</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary active:scale-95 transition-all" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary active:scale-95 transition-all" data-icon="settings">settings</button>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 font-label-md text-label-md active:scale-95 transition-transform">Prepare</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional corporate portrait of a confident executive in a high-end office environment. The lighting is sophisticated and dramatic, emphasizing facial features with soft shadows. The overall aesthetic is dark, moody, and premium, aligned with a corporate elite persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_IbZUHWwYaL1vjU1EipnaNFCimAGGNOBe25WsMp26n-Xjq1SrVM93O8tq1WvOTeiio0s8DoPPo7NamDE3zhdzgllRvmGeKnbVgjcOgGfRaNt77zMSVA5s5-Tv28XPRf7KcjzNY7ujcD1T0D9X0PY3TvjD5Bl5uMEt91LcfQU74zOGxL_QuhXLXbtH_KmIyWlW4rFsiPvzQ5iWooNTUETbdgKXgN-e2AubJZZTVWnu3YyZ1jXBEXCghhc8jRsgsTY1azUxKhMOPyUm"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-32 pb-20 px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Hero Section & Difficulty Selection -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Choose your career <span class="text-tertiary">domain</span>.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Select the industry path you want to master. Our AI mentors will simulate elite-level interview scenarios tailored to your target seniority.</p>
+</div>
+<div class="glass-card p-1 flex rounded-full border border-outline-variant">
+<button class="difficulty-pill active px-6 py-2 font-label-md text-label-md transition-all duration-300 rounded-full" onclick="setDifficulty('entry')">Entry</button>
+<button class="difficulty-pill px-6 py-2 font-label-md text-label-md transition-all duration-300 rounded-full text-on-surface-variant hover:text-primary" onclick="setDifficulty('mid')">Mid</button>
+<button class="difficulty-pill px-6 py-2 font-label-md text-label-md transition-all duration-300 rounded-full text-on-surface-variant hover:text-primary" onclick="setDifficulty('senior')">Senior</button>
+</div>
+</div>
+<!-- Domain Grid (Bento Style Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-gutter">
+<!-- Software Engineering -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1">
+<div>
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary mb-6 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="terminal">terminal</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Software Engineering</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">System design, algorithms, and deep dives into full-stack architecture for modern tech firms.</p>
+</div>
+<div class="flex items-center gap-2 mt-8 text-tertiary font-label-md text-label-md">
+<span>AI Verified</span>
+<span class="material-symbols-outlined text-sm" data-icon="verified" data-weight="fill">verified</span>
+</div>
+</div>
+<!-- Cyber Security -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1">
+<div>
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary mb-6 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="security">security</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Cyber Security</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Penetration testing, threat modeling, and regulatory compliance scenarios for security architects.</p>
+</div>
+<div class="flex items-center gap-2 mt-8 text-on-surface-variant font-label-md text-label-md opacity-60">
+<span>12 Sessions Available</span>
+</div>
+</div>
+<!-- Banking & Finance -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1 md:col-span-1 lg:col-span-1 border-tertiary/20">
+<div class="relative z-10">
+<div class="w-12 h-12 flex items-center justify-center bg-tertiary/10 text-tertiary mb-6 rounded-lg group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="account_balance">account_balance</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Banking &amp; Finance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Investment strategies, risk management, and quantitative analysis for top-tier financial institutions.</p>
+</div>
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center gap-2 mt-8 text-tertiary font-label-md text-label-md">
+<span class="px-2 py-0.5 border border-tertiary/40 rounded uppercase tracking-widest text-[10px]">Premium Access</span>
+</div>
+</div>
+<!-- Pharmacy -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1">
+<div>
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary mb-6 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="medication">medication</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Pharmacy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Pharmacology, patient counseling, and clinical ethics for specialized healthcare roles.</p>
+</div>
+<div class="flex items-center gap-2 mt-8 text-on-surface-variant font-label-md text-label-md opacity-60">
+<span>New Domain</span>
+</div>
+</div>
+<!-- Medical / Healthcare -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1 lg:col-span-1">
+<div>
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary mb-6 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="stethoscope">stethoscope</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Medical</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Diagnosis proficiency, surgery management, and emergency response decision-making.</p>
+</div>
+</div>
+<!-- Business & Management -->
+<div class="glass-card group p-8 flex flex-col justify-between min-h-[320px] cursor-pointer transition-all duration-300 transform hover:-translate-y-1">
+<div>
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary mb-6 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="business_center">business_center</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Business</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Strategic planning, operations management, and high-stakes negotiation simulation.</p>
+</div>
+<div class="flex items-center gap-2 mt-8 text-tertiary font-label-md text-label-md">
+<span>AI Verified</span>
+<span class="material-symbols-outlined text-sm" data-icon="verified" data-weight="fill">verified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="mt-16 grid grid-cols-1 md:grid-cols-4 gap- gutter">
+<div class="glass-card p-6 border-l-4 border-l-secondary-container">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Active Candidates</span>
+<span class="font-headline-lg text-headline-lg text-primary">12.4k</span>
+</div>
+<div class="glass-card p-6 border-l-4 border-l-tertiary">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Success Rate</span>
+<span class="font-headline-lg text-headline-lg text-tertiary">94%</span>
+</div>
+<div class="glass-card p-6 border-l-4 border-l-primary-fixed-dim">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">AI Insights</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">Daily</span>
+</div>
+<div class="glass-card p-6 border-l-4 border-l-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Ready Status</span>
+<div class="h-2 w-full bg-surface-container-highest rounded-full mt-4">
+<div class="h-full bg-secondary-container w-3/4 rounded-full shadow-[0_0_10px_rgba(5,102,217,0.5)]"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Section -->
+<footer class="w-full py-12 bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-8">
+<div class="flex flex-col gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">PreppedAI</span>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">© 2024 PreppedAI. Engineering career excellence.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Career Guides</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">AI Methodology</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        function setDifficulty(level) {
+            const buttons = document.querySelectorAll('.difficulty-pill');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-on-primary');
+                btn.classList.add('text-on-surface-variant');
+                if (btn.innerText.toLowerCase() === level) {
+                    btn.classList.add('active');
+                    btn.classList.remove('text-on-surface-variant');
+                }
+            });
+            
+            // Interaction feedback
+            console.log(`Difficulty updated to: ${level}`);
+        }
+
+        // Add subtle mouse tracking glow to cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
